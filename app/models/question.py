@@ -41,6 +41,11 @@ class Question(Base):
 
     survey = relationship("Survey", back_populates="questions")
 
+    options = relationship(
+        "Option",
+        back_populates="question",
+        cascade="all, delete-orphan")
+
     # apenas uma posição por survey
     __table_args__ = (
         UniqueConstraint(
