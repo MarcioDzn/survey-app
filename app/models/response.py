@@ -21,3 +21,8 @@ class Response(Base):
 
     survey = relationship("Survey", back_populates="responses")
     user = relationship("User", back_populates="responses")
+
+    answers = relationship(
+        "Answer",
+        back_populates="response",
+        cascade="all, delete-orphan")
