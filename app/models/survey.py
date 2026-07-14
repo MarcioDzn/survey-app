@@ -6,13 +6,10 @@ class Survey(Base):
     __tablename__ = "surveys"
 
     id = Column(Integer, primary_key=True)
-    user_id = Column(Integer, ForeignKey("users.id"))
     title = Column(String(100), nullable=False)
     description = Column(String(1000))
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
-
-    user = relationship("User", back_populates="surveys")
 
     questions = relationship(
         "Question", 
@@ -23,3 +20,9 @@ class Survey(Base):
         "Response",
         back_populates="survey",
         cascade="all, delete-orphan")
+
+    members = relationship(
+        "SurveyMember",
+        back_populates="survey",
+        cascade="all, delete-orphan"
+    )

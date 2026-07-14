@@ -11,12 +11,13 @@ class User(Base):
     password = Column(String(100), nullable=False)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
-    surveys = relationship(
-        "Survey",
-        back_populates="user",
-        cascade="all, delete-orphan")
-
     responses = relationship(
         "Response",
         back_populates="user",
         cascade="all, delete-orphan")
+
+    survey_members = relationship(
+        "SurveyMember",
+        back_populates="user",
+        cascade="all, delete-orphan"
+    )
