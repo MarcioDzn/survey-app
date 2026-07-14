@@ -20,3 +20,8 @@ class Answer(Base):
 
     response = relationship("Response", back_populates="answers")
     question = relationship("Question", back_populates="answers")
+
+    answer_options = relationship(
+        "AnswerOption", 
+        back_populates="answer", 
+        cascade="all, delete-orphan")
