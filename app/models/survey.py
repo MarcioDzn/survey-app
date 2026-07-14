@@ -18,3 +18,8 @@ class Survey(Base):
         "Question", 
         back_populates="survey",
         cascade="all, delete-orphan")
+
+    responses = relationship(
+        "Response",
+        back_populates="survey",
+        cascade="all, delete-orphan")

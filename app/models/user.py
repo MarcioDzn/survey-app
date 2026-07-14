@@ -15,3 +15,8 @@ class User(Base):
         "Survey",
         back_populates="user",
         cascade="all, delete-orphan")
+
+    responses = relationship(
+        "Response",
+        back_populates="user",
+        cascade="all, delete-orphan")
