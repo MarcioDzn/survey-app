@@ -26,3 +26,11 @@ class Response(Base):
         "Answer",
         back_populates="response",
         cascade="all, delete-orphan")
+
+    __table_args__ = (
+        UniqueConstraint(
+            "survey_id",
+            "user_id",
+            name="uq_response_survey_user"
+        ),
+    )

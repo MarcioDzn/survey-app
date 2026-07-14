@@ -25,3 +25,11 @@ class Answer(Base):
         "AnswerOption", 
         back_populates="answer", 
         cascade="all, delete-orphan")
+
+    __table_args__ = (
+        UniqueConstraint(
+            "response_id",
+            "question_id",
+            name="uq_answer_response_question"
+        ),
+    )
