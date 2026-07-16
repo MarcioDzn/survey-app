@@ -6,8 +6,10 @@ class Survey(Base):
     __tablename__ = "surveys"
 
     id = Column(Integer, primary_key=True)
+    code = Column(String(10), unique=True, nullable=False)
     title = Column(String(100), nullable=False)
     description = Column(String(1000))
+    is_public = Column(Boolean, default = True)
     is_active = Column(Boolean, default=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now())
 
