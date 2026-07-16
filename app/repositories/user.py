@@ -1,8 +1,8 @@
 class UserRepository:
     
 
-    def __init__(self):
-        pass
+    def __init__(self, session):
+        self.session = session
 
 
     def create(self):
