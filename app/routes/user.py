@@ -1,4 +1,4 @@
-from fastapi import APIRouter, Depends, status
+from fastapi import APIRouter, Depends, status, HTTPException
 
 from app.services import UserService
 from app.dependencies import get_user_service
@@ -9,7 +9,10 @@ router = APIRouter(prefix="/users", tags=["Users"])
 
 @router.post("/", response_model=UserRead, status_code=status.HTTP_201_CREATED)
 def create(user_data: UserCreate, user_service: UserService = Depends(get_user_service)):
-    return user_service.create(user_data)
+    try:
+        return user_service.create(user_data)
+    except ValueError:
+        raise HTTPException(status_code=status.HTTP_409_CONFLICT, detail="E-mail já cadastrado")
 
 
 @router.get("/", response_model=list[UserRead], status_code=status.HTTP_200_OK)
