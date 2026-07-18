@@ -1,3 +1,6 @@
+from sqlalchemy.exc import IntegrityError
+from app.exceptions import NotFoundError, UniqueFieldError
+
 class UserService:
     def __init__(self, user_repository, session):
         self.user_repository = user_repository
@@ -8,3 +11,33 @@ class UserService:
 
     def get_all(self):
         return self.user_repository.get_all()
+    
+    def get_by_id(self, id):
+        user = self.user_repository.get_by_id(id)
+
+        if (not user):
+            raise NotFoundError("Usuário não encontrado")
+        
+        return self.user_repository.get_by_id(id)
+    
+    def update(self, id, user_data):
+        user = self.user_repository.get_by_id(id)
+
+        if (not user):
+            raise NotFoundError("Usuário não encontrado")
+        
+        try:
+            return self.user_repository.update(user, user_data)
+        except IntegrityError:
+            raise UniqueFieldError("E-mail já cadastrado")
+
+
+    def delete(self, id):
+        user = self.user_repository.get_by_id(id)
+
+        if (not user):
+            raise NotFoundError("Usuário não encontrado")
+    
+        return self.user_repository.delete(user)
+
+
