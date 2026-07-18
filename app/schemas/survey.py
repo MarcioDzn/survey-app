@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Union
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -22,10 +22,10 @@ class SurveyRead(SurveyBase):
 
 
 class SurveyUpdate(BaseModel):
-    title: Union[str]
-    description: Union[str]
-    is_public: Union[bool]
-    is_active: Union[bool]
+    title: Optional[str] = None
+    description: Optional[str] = None
+    is_public: Optional[bool] = None
+    is_active: Optional[bool] = None
 
     class Config:
         orm_mode = True
